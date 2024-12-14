@@ -1,12 +1,21 @@
-// mobile app drawer
-import React from "react";
+import React from "react"; // mobile app drawer
 import ReactDOM from "react-dom";
+import { CSSTransition} from 'react-transition-group';
 
 import './SideDrawer.css';
 
-const SideDrawer =  props => {
-    //slide away
-    const content = <aside className="side-drawer">{props.children}</aside>;
+const SideDrawer =  props => { // slide away
+    const content = (
+        <CSSTransition 
+            in={props.show} 
+            timeout={200} 
+            classNames="slide-in-left"
+            mountOnEnter 
+            unmountOnExit
+        >
+            <aside className="side-drawer" onClick={props.onClick}>{props.children}</aside>
+        </CSSTransition>
+    );
 
     return ReactDOM.createPortal(content, document.getElementById('drawer-hook'));
 };
